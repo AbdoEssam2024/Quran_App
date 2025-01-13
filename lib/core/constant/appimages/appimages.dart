@@ -9,6 +9,7 @@ class AppImages {
   static String imageSeven = "$rootimage/7.jpeg";
   static String imageEight = "$rootimage/8.jpg";
   static String logo = "$rootimage/logo.png";
+  static String splash = "$rootimage/splash1.png";
   // ========== App Images Lottie ============ //
   static String rootLottie = "assets/lottie";
   static String loading = "$rootLottie/loading.json";

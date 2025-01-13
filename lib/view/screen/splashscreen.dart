@@ -3,14 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:quran/controller/splashcontroller.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
-import 'package:quran/main.dart';
+import 'package:quran/core/constant/appimages/appimages.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
     Get.put(SplashController());
     return Scaffold(
         backgroundColor: AppColors.splashMainBackGroundColor,
@@ -26,7 +25,7 @@ class SplashScreen extends StatelessWidget {
                       child: SizedBox(
                         height: 350.h,
                         child: Image.asset(
-                          "assets/images/splash1.png",
+                          AppImages.splash,
                           color: Colors.white,
                         ),
                       ),
@@ -45,7 +44,6 @@ class SplashScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 10.w, vertical: 15.h),
                         onPressed: () {
-                         sharedPreferences!.setInt("visit", 1);
                           controller.gotoHomePage();
                         },
                         child: Text(

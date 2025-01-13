@@ -1,5 +1,4 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:quran/core/class/splashmiddleware.dart';
 import 'package:quran/core/constant/routes/routesname.dart';
 import 'package:quran/view/screen/bestreadings/bestreading.dart';
 import 'package:quran/view/screen/bestreadings/bestreadingplayscreen.dart';
@@ -21,9 +20,9 @@ class AppRoutes {
   static List<GetPage<dynamic>> getpages = [
     // ====================== Splash Screen ========================== //
     GetPage(
-        name: AppRoutesNames.splashScreen,
-        page: () => SplashScreen(),
-        middlewares: [SplashMiddleWare()]),
+      name: AppRoutesNames.splashScreen,
+      page: () => SplashScreen(),
+    ),
 
     // ======================= Home Screen =========================== //
     GetPage(name: AppRoutesNames.home, page: () => HomePage()),

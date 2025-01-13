@@ -5,13 +5,11 @@ import 'package:quran/core/binding/initial_binding.dart';
 import 'package:quran/core/constant/apptheme/apptheme.dart';
 import 'package:quran/core/constant/routes/routes.dart';
 import 'package:quran/core/constant/routes/routesname.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
-SharedPreferences? sharedPreferences;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  sharedPreferences = await SharedPreferences.getInstance();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
