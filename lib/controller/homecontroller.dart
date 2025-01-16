@@ -10,9 +10,12 @@ import 'package:quran/data/suwarname/suwarname.dart';
 import 'package:quran/data/tadaborvideo/tadabor.dart';
 import 'package:quran/data/variousreadingsaudio/variousreadingsaudio.dart';
 import 'package:video_player/video_player.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class HomeController extends GetxController {
   double sectionsImageShow = 0.0;
+  late BannerAd bannerAD;
+  bool adLoaded = false;
 
   // Categories Data Implementation //
   MoshafAudioData readMoshafData = MoshafAudioData(Get.find());
@@ -336,9 +339,33 @@ class HomeController extends GetxController {
       Get.offNamed(AppRoutesNames.bestReadings, arguments: argument);
     }
   }
+  // ==== Admob Function ==== //
+  // void loadBannerAd() {
+  //   bannerAD = BannerAd(
+  //     size: AdSize.fullBanner,
+  //     adUnitId: "Add Your Unit Id",
+  //     request: AdRequest(),
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (ad) {
+  //         print("Success");
+  //         adLoaded = true;
+  //         bannerAD = ad as BannerAd;
+  //       },
+  //       onAdFailedToLoad: (ad, error) {
+  //         adLoaded = false;
+  //         print("Error :=> $error");
+  //         ad.dispose();
+  //         return;
+  //       },
+  //     ),
+  //   );
+  //   bannerAD.load();
+  //   update();
+  // }
 
   @override
   void onInit() async {
+    // loadBannerAd();
     initializeVideoplayer();
     getSalahTimingData();
     getTadaborData();
@@ -362,6 +389,7 @@ class HomeController extends GetxController {
     almoshafKamelPlayer.dispose();
     variousReadingPlayer.dispose();
     videoController.dispose();
+    bannerAD.dispose();
     super.onClose();
   }
 }
