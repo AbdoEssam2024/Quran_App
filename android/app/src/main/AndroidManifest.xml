@@ -16,7 +16,7 @@
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data android:name="flutterEmbedding" android:value="2" />
         <!-- AdMob Ads Configurations -->
-        <!-- <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="Add Your App Id" /> -->
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="Add Your App Id" />
             
             
     </application>

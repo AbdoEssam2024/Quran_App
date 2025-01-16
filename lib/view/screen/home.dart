@@ -27,7 +27,7 @@ class HomePage extends GetView<HomeController> {
                   padding: EdgeInsets.all(10.sp),
                   child: ListView(
                     children: [
-                      // BannerAdUnit(),
+                      BannerAdUnit(),
                       HomeSectionHeader(
                         text: "مواعيد الصلاة",
                       ),

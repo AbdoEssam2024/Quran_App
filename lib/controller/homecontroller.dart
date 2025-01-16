@@ -340,32 +340,32 @@ class HomeController extends GetxController {
     }
   }
   // ==== Admob Function ==== //
-  // void loadBannerAd() {
-  //   bannerAD = BannerAd(
-  //     size: AdSize.fullBanner,
-  //     adUnitId: "Add Your Unit Id",
-  //     request: AdRequest(),
-  //     listener: BannerAdListener(
-  //       onAdLoaded: (ad) {
-  //         print("Success");
-  //         adLoaded = true;
-  //         bannerAD = ad as BannerAd;
-  //       },
-  //       onAdFailedToLoad: (ad, error) {
-  //         adLoaded = false;
-  //         print("Error :=> $error");
-  //         ad.dispose();
-  //         return;
-  //       },
-  //     ),
-  //   );
-  //   bannerAD.load();
-  //   update();
-  // }
+  void loadBannerAd() {
+    bannerAD = BannerAd(
+      size: AdSize.fullBanner,
+      adUnitId: "Add Your Unit Id",
+      request: AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          print("Success");
+          adLoaded = true;
+          bannerAD = ad as BannerAd;
+        },
+        onAdFailedToLoad: (ad, error) {
+          adLoaded = false;
+          print("Error :=> $error");
+          ad.dispose();
+          return;
+        },
+      ),
+    );
+    bannerAD.load();
+    update();
+  }
 
   @override
   void onInit() async {
-    // loadBannerAd();
+    loadBannerAd();
     initializeVideoplayer();
     getSalahTimingData();
     getTadaborData();
