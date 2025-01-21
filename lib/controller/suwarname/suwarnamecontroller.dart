@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:quran/core/class/staturequest.dart';
 import 'package:quran/core/constant/routes/routesname.dart';
@@ -5,6 +6,8 @@ import 'package:quran/core/functions/handling_data_controller.dart';
 import 'package:quran/data/suwarname/suwarname.dart';
 
 class SuwarNameController extends GetxController {
+  final Connectivity connectivity = Connectivity();
+
   // Make Instance From (StatusRequest) Class To Handle The Response Of Data , //
   // Taking Start Value Of (none) ; //
   StatusRequest statusRequest = StatusRequest.none;
@@ -21,6 +24,19 @@ class SuwarNameController extends GetxController {
   // Variable Of (Boolean) DataType To Check If User Use Search Is Not , //
   // It Have Start Value Of (false) And It Will Change When The User Use Search ; //
   bool isSearch = false;
+
+  initConnectivity() {
+    connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+  }
+
+  updateConnectionStatus(List<ConnectivityResult> connectivityResultList) {
+    if (connectivityResultList.contains(ConnectivityResult.none)) {
+      statusRequest = StatusRequest.offlineFailure;
+    } else {
+      getData();
+    }
+    update();
+  }
 
   // Function (getData) To Get The Request (Qarea Data) From The Server , //
   getData() async {
@@ -96,13 +112,14 @@ class SuwarNameController extends GetxController {
   // This Function Will Allow The User To Navigate Back The Home Page , //
   gotoHome() {
     // Route Back Without Keep The Page In The Stack , //
-    Get.offNamed(AppRoutesNames.home);
+    Get.offAllNamed(AppRoutesNames.home);
     // Delete The Page Controller To Save The Memory , //
     // Get.delete<MoshafAudioController>();
   }
 
   @override
   void onInit() {
+    initConnectivity();
     // First We Excuted The Function (getData) To Send Request To The Server , //
     // And Get The Main Data That We Will Work On In This Page , //
     getData();

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:quran/core/constant/routes/routesname.dart';
 
 class MoshafPlayScreenController extends GetxController {
+
   // (suraName) Variable Of List DataType To Get SurahNameList From Previous Page , //
   // Which Belong To The Specified (Qarea) That User Chossed Before ; //
   List suraName = [];
@@ -199,8 +200,11 @@ class MoshafPlayScreenController extends GetxController {
     Get.offNamed(AppRoutesNames.moshafAudioSuwar);
   }
 
+
+
   @override
   void onInit() {
+
     // ||Data Pasing From Audio Suwar Page|| //
     // Sura Name List Belong To The Specified (Qarea) , //
     suraName.addAll(Get.arguments['sura_name']);

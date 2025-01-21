@@ -3,10 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
 
 class CustomSearchBar extends StatelessWidget {
-  final void Function(String) func;
+  final void Function(String)? func;
   final void Function() btnFunc;
+  final void Function()? testFunc;
+  final TextEditingController? feildControl;
 
-  const CustomSearchBar({super.key, required this.btnFunc, required this.func});
+  const CustomSearchBar({
+    super.key,
+    required this.btnFunc,
+    this.func,
+    this.testFunc,
+    this.feildControl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,10 @@ class CustomSearchBar extends StatelessWidget {
         children: [
           Expanded(
               child: TextFormField(
-            onChanged: func,
+            controller: feildControl,
+            onEditingComplete: testFunc,
+
+            // onChanged: func,
             decoration: InputDecoration(
                 hintText: "بحث",
                 hintStyle: TextStyle(fontSize: 14.sp),
@@ -27,10 +38,8 @@ class CustomSearchBar extends StatelessWidget {
                   icon: Icon(Icons.search_outlined),
                   onPressed: () {},
                 ),
-                border: OutlineInputBorder(
-
-                    // borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(15)),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
                 filled: true,
                 fillColor: AppColors.bgColorLightGreen),
           )),

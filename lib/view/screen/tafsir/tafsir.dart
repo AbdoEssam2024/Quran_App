@@ -4,7 +4,9 @@ import 'package:quran/controller/tafsir/tafsirscreencontroller.dart';
 import 'package:quran/core/class/handlingdataview.dart';
 import 'package:quran/core/class/screensize.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
+import 'package:quran/core/functions/pop_func.dart';
 import 'package:quran/model/tafseermodel.dart';
+import 'package:quran/view/widgets/corewidgets/pop_widget.dart';
 import 'package:quran/view/widgets/corewidgets/searchbar.dart';
 import 'package:quran/view/widgets/tafsirwidgets/tafsiritemswidget.dart';
 
@@ -14,9 +16,11 @@ class TafsirScreen extends GetView<TafsirScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(TafsirScreenController());
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
+    return PopScopeWidget(
+      func: (didpop, result) {
+        popFunc(didpop, controller.gotoHome());
+      },
+      widget: Scaffold(
         backgroundColor: AppColors.splashMainBackGroundColor,
         body: ListView(
           physics: NeverScrollableScrollPhysics(),

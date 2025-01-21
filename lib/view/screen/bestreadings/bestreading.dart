@@ -4,9 +4,12 @@ import 'package:quran/controller/bestreading/bestreadingcontroller.dart';
 import 'package:quran/core/class/handlingdataview.dart';
 import 'package:quran/core/class/screensize.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
+import 'package:quran/core/functions/pop_func.dart';
 import 'package:quran/model/bestreadingmodel.dart';
 import 'package:quran/view/widgets/bestradingwidgets/bestreadingwidgets.dart';
 import 'package:quran/view/widgets/corewidgets/searchbar.dart';
+
+import '../../widgets/corewidgets/pop_widget.dart';
 
 class BestReadingScreen extends GetView<BestReadingController> {
   const BestReadingScreen({super.key});
@@ -14,9 +17,11 @@ class BestReadingScreen extends GetView<BestReadingController> {
   @override
   Widget build(BuildContext context) {
     Get.put(BestReadingController());
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
+    return PopScopeWidget(
+      func: (didpop, result) {
+        popFunc(didpop, controller.goToHomePage());
+      },
+      widget: Scaffold(
         backgroundColor: AppColors.splashMainBackGroundColor,
         body: ListView(
           physics: NeverScrollableScrollPhysics(),

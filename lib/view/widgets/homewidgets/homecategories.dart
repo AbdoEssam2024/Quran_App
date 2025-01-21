@@ -12,7 +12,7 @@ class HomeCategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: ScreenSize.screenHeight * 0.31,
+        height: ScreenSize.screenHeight * 0.32,
         padding: EdgeInsets.symmetric(vertical: 10.sp),
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -67,7 +67,11 @@ class HomeCategoriesItems extends StatelessWidget {
               ),
               Text(
                 AppCategories.quranDepratments[index]['name'],
-                style: TextStyle(fontSize: 14.sp, color: AppColors.textBlack),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: AppColors.textBlack,
+                ),
               )
             ],
           ),

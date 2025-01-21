@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran/core/class/staturequest.dart';
@@ -10,12 +11,11 @@ import 'package:quran/data/suwarname/suwarname.dart';
 import 'package:quran/data/tadaborvideo/tadabor.dart';
 import 'package:quran/data/variousreadingsaudio/variousreadingsaudio.dart';
 import 'package:video_player/video_player.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class HomeController extends GetxController {
+  final Connectivity connectivity = Connectivity();
+
   double sectionsImageShow = 0.0;
-  late BannerAd bannerAD;
-  bool adLoaded = false;
 
   // Categories Data Implementation //
   MoshafAudioData readMoshafData = MoshafAudioData(Get.find());
@@ -75,6 +75,28 @@ class HomeController extends GetxController {
     update();
   }
 
+  updateConnectionStatus(List<ConnectivityResult> connectivityResultList) {
+    if (connectivityResultList.contains(ConnectivityResult.none)) {
+      salahTimingStatusRequest = StatusRequest.offlineFailure;
+      almoshaStatusRequest = StatusRequest.offlineFailure;
+      suwarNameStatusRequest = StatusRequest.offlineFailure;
+      tadaborStatusRequest = StatusRequest.offlineFailure;
+      variousReadingStatusRequest = StatusRequest.offlineFailure;
+    } else {
+      getSalahTimingData();
+      getAlmoshafKamelData();
+      getSuwarNameData();
+      getTadaborData();
+      initializeVideoplayer();
+      getVariousReadingData();
+    }
+    update();
+  }
+
+  initConnectivity() {
+    connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+  }
+
   // Salah Timing Get Data Function //
   getSalahTimingData() async {
     salahTimingStatusRequest = StatusRequest.loading;
@@ -88,6 +110,7 @@ class HomeController extends GetxController {
         salahTimingStatusRequest = StatusRequest.serverFailure;
       }
     }
+
     update();
   }
 
@@ -114,6 +137,7 @@ class HomeController extends GetxController {
         moshafAudioData.addAll(dt);
       }
     }
+
     update();
   }
 
@@ -326,46 +350,27 @@ class HomeController extends GetxController {
 
   pageRoute(int index, {Map? argument}) {
     if (index == 0) {
-      Get.offNamed(AppRoutesNames.moshafAudio, arguments: argument);
+      Get.offNamed(AppRoutesNames.readMoshafScreen, arguments: argument);
     } else if (index == 1) {
-      Get.offNamed(AppRoutesNames.suwarname, arguments: argument);
+      Get.offNamed(AppRoutesNames.moshafAudio, arguments: argument);
     } else if (index == 2) {
-      Get.offNamed(AppRoutesNames.variousreading, arguments: argument);
+      Get.offNamed(AppRoutesNames.suwarname, arguments: argument);
     } else if (index == 3) {
-      Get.offNamed(AppRoutesNames.tafsirscreen, arguments: argument);
+      Get.offNamed(AppRoutesNames.variousreading, arguments: argument);
     } else if (index == 4) {
-      Get.offNamed(AppRoutesNames.tadaborScreen, arguments: argument);
+      Get.offNamed(AppRoutesNames.tafsirscreen, arguments: argument);
     } else if (index == 5) {
+      Get.offNamed(AppRoutesNames.tadaborScreen, arguments: argument);
+    } else {
       Get.offNamed(AppRoutesNames.bestReadings, arguments: argument);
     }
   }
-  // ==== Admob Function ==== //
-  void loadBannerAd() {
-    bannerAD = BannerAd(
-      size: AdSize.fullBanner,
-      adUnitId: "Add Your Unit Id",
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          print("Success");
-          adLoaded = true;
-          bannerAD = ad as BannerAd;
-        },
-        onAdFailedToLoad: (ad, error) {
-          adLoaded = false;
-          print("Error :=> $error");
-          ad.dispose();
-          return;
-        },
-      ),
-    );
-    bannerAD.load();
-    update();
-  }
+
+
 
   @override
   void onInit() async {
-    loadBannerAd();
+    initConnectivity();
     initializeVideoplayer();
     getSalahTimingData();
     getTadaborData();
@@ -374,6 +379,7 @@ class HomeController extends GetxController {
     getVariousReadingData();
     initAudiodurationAndPosition();
     initVariousReadungAudiodurationAndPosition();
+
     update();
     super.onInit();
   }
@@ -389,7 +395,6 @@ class HomeController extends GetxController {
     almoshafKamelPlayer.dispose();
     variousReadingPlayer.dispose();
     videoController.dispose();
-    bannerAD.dispose();
     super.onClose();
   }
 }

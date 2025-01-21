@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:quran/core/class/staturequest.dart';
 import 'package:quran/core/constant/routes/routesname.dart';
@@ -7,6 +8,7 @@ import 'package:quran/data/bestreading/bestreadingdata.dart';
 class BestReadingController extends GetxController {
   BestReadingData bestReadingData = BestReadingData(Get.find());
   StatusRequest statusRequest = StatusRequest.loading;
+  final Connectivity connectivity = Connectivity();
 
   List bestReadingMainData = [];
 
@@ -16,6 +18,19 @@ class BestReadingController extends GetxController {
   // Variable Of (Boolean) DataType To Check If User Use Search Is Not , //
   // It Have Start Value Of (false) And It Will Change When The User Use Search ; //
   bool isSearch = false;
+
+  initConnectivity() {
+    connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+  }
+
+  updateConnectionStatus(List<ConnectivityResult> connectivityResultList) {
+    if (connectivityResultList.contains(ConnectivityResult.none)) {
+      statusRequest = StatusRequest.offlineFailure;
+    } else {
+      getBestReadingData();
+    }
+    update();
+  }
 
   getBestReadingData() async {
     statusRequest = StatusRequest.loading;
@@ -71,7 +86,7 @@ class BestReadingController extends GetxController {
   }
 
   goToHomePage() {
-    Get.offNamed(AppRoutesNames.home);
+    Get.offAllNamed(AppRoutesNames.home);
   }
 
   goToPlayScreen(String qareaname, int index) {
@@ -86,6 +101,7 @@ class BestReadingController extends GetxController {
 
   @override
   void onInit() {
+    initConnectivity();
     getBestReadingData();
     super.onInit();
   }

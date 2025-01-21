@@ -16,16 +16,16 @@ class SalahTimingWidget extends GetView<HomeController> {
         builder: (controller) => HandlingDataRequest(
             statusRequest: controller.salahTimingStatusRequest,
             widget: Container(
-                height: ScreenSize.screenHeight * 0.6,
-                padding: EdgeInsets.symmetric(
-                    vertical: ScreenSize.screenHeight * 0.01),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.salahTimingData.length,
-                    itemBuilder: (context, index) => SalahTimingItems(
-                          salah: MawaqeetSalah.fromJson(
-                              controller.salahTimingData[index]),
-                        )))));
+                    height: ScreenSize.screenHeight * 0.6,
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenSize.screenHeight * 0.01),
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 1,
+                        itemBuilder: (context, index) => SalahTimingItems(
+                              salah: MawaqeetSalah.fromJson(
+                                  controller.salahTimingData[index]),
+                            )))));
   }
 }
 

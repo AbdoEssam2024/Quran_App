@@ -22,4 +22,5 @@ class AppRoutesNames {
   // ====================== Best Reading Screen ====================== //
   static String bestReadings = "/bestreadings";
   static String bestReadingsplayscreen = "/bestreadingplayscreen";
+  static String readMoshafScreen = "/readMoshafScreen";
 }

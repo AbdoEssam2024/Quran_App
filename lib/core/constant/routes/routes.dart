@@ -6,6 +6,7 @@ import 'package:quran/view/screen/home.dart';
 import 'package:quran/view/screen/moshafaudio/moshafaudio.dart';
 import 'package:quran/view/screen/moshafaudio/moshafaudiosuwar.dart';
 import 'package:quran/view/screen/moshafaudio/playscreen.dart';
+import 'package:quran/view/screen/read_moshaf/read_moshaf_screen.dart';
 import 'package:quran/view/screen/splashscreen.dart';
 import 'package:quran/view/screen/suwarname/suwarname.dart';
 import 'package:quran/view/screen/tadabor/tadaborplayerscreen.dart';
@@ -61,5 +62,8 @@ class AppRoutes {
     GetPage(
         name: AppRoutesNames.bestReadingsplayscreen,
         page: () => BestReadingPlayerScreen()),
+    GetPage(
+        name: AppRoutesNames.readMoshafScreen,
+        page: () => ReadMoshafScreen()),
   ];
 }

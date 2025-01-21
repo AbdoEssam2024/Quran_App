@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:quran/core/class/staturequest.dart';
 import 'package:quran/core/constant/routes/routesname.dart';
@@ -5,6 +6,8 @@ import 'package:quran/core/functions/handling_data_controller.dart';
 import 'package:quran/data/tadaborvideo/tadabor.dart';
 
 class TadaborController extends GetxController {
+  final Connectivity connectivity = Connectivity();
+
   Tadabor tadabor = Tadabor(Get.find());
 
   StatusRequest tadaborStatusRequest = StatusRequest.loading;
@@ -12,6 +15,19 @@ class TadaborController extends GetxController {
   List tadaborMainData = [];
   Map tadaborSubData = {};
   List finalData = [];
+
+  initConnectivity() {
+    connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+  }
+
+  updateConnectionStatus(List<ConnectivityResult> connectivityResultList) {
+    if (connectivityResultList.contains(ConnectivityResult.none)) {
+      tadaborStatusRequest = StatusRequest.offlineFailure;
+    } else {
+      getTadaborData();
+    }
+    update();
+  }
 
   // Tadabor Get Data Function //
   getTadaborData() async {
@@ -43,11 +59,13 @@ class TadaborController extends GetxController {
   }
 
   goToHomePage() {
-    Get.offNamed(AppRoutesNames.home);
+    Get.offAllNamed(AppRoutesNames.home);
   }
 
   @override
   void onInit() {
+    initConnectivity();
+
     getTadaborData();
     super.onInit();
   }

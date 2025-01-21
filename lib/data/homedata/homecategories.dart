@@ -3,6 +3,10 @@ import 'package:quran/core/constant/appimages/appimages.dart';
 class AppCategories {
   static List quranDepratments = [
     {
+      "name": "قراءة المصحف\nبدون انترنت",
+      "image": AppImages.Quranimage1,
+    },
+    {
       "name": "المصحف كامل",
       "image": AppImages.logo,
     },

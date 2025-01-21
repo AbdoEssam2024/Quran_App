@@ -17,4 +17,5 @@ class AppColors {
   static Color iconStopColor = Color.fromARGB(255, 163, 51, 51);
   static Color iconPauseColor = Color.fromARGB(255, 153, 143, 54);
   static Color iconSoundColor = Color.fromARGB(255, 33, 150, 243);
+  static Color pagesBG = Color(0xfffdfbe4);
 }

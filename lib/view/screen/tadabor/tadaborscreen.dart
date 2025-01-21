@@ -5,7 +5,9 @@ import 'package:quran/controller/tadabor/tadaborcontroller.dart';
 import 'package:quran/core/class/handlingdataview.dart';
 import 'package:quran/core/class/screensize.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
+import 'package:quran/core/functions/pop_func.dart';
 import 'package:quran/model/tadabormodel.dart';
+import 'package:quran/view/widgets/corewidgets/pop_widget.dart';
 import 'package:quran/view/widgets/tadaborwidget/tadaborcard.dart';
 
 class TadaborScreen extends GetView<TadaborController> {
@@ -14,9 +16,11 @@ class TadaborScreen extends GetView<TadaborController> {
   @override
   Widget build(BuildContext context) {
     Get.put(TadaborController());
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
+    return PopScopeWidget(
+      func: (didpop, result) {
+        popFunc(didpop, controller.goToHomePage());
+      },
+      widget: Scaffold(
           backgroundColor: AppColors.splashMainBackGroundColor,
           body: ListView(
             physics: NeverScrollableScrollPhysics(),

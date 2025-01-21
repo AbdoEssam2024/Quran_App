@@ -5,21 +5,25 @@ import 'package:quran/controller/bestreading/bestreadingplayscreencontroller.dar
 import 'package:quran/core/class/screensize.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
 import 'package:quran/core/functions/audiofunctions.dart';
+import 'package:quran/core/functions/pop_func.dart';
 import 'package:quran/view/widgets/bestradingwidgets/bestreadingwidgets.dart';
 import 'package:quran/view/widgets/corewidgets/audiocontrollers.dart';
 import 'package:quran/view/widgets/corewidgets/customslider.dart';
+import 'package:quran/view/widgets/corewidgets/pop_widget.dart';
 import 'package:quran/view/widgets/homewidgets/tadabor.dart';
 import 'package:video_player/video_player.dart';
 
-class BestReadingPlayerScreen extends StatelessWidget {
+class BestReadingPlayerScreen extends GetView<BestReadingPlayScreenController> {
   const BestReadingPlayerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     Get.put(BestReadingPlayScreenController());
-    return PopScope(
-        canPop: false,
-        child: Scaffold(
+    return PopScopeWidget(
+      func: (didpop, result) {
+        popFunc(didpop, controller.goToBestReadingScreen());
+      },
+      widget: Scaffold(
             backgroundColor: AppColors.splashMainBackGroundColor,
             body: GetBuilder<BestReadingPlayScreenController>(
                 builder: (controller) => Column(

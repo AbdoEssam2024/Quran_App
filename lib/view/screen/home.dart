@@ -1,9 +1,13 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:quran/controller/homecontroller.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
 import 'package:quran/core/constant/routes/routesname.dart';
+import 'package:quran/core/functions/pop_func.dart';
+import 'package:quran/view/widgets/corewidgets/pop_widget.dart';
 import 'package:quran/view/widgets/homewidgets/almoshafkamel.dart';
 import 'package:quran/view/widgets/homewidgets/hometitle.dart';
 import 'package:quran/view/widgets/homewidgets/homecategories.dart';
@@ -18,82 +22,98 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: AppColors.splashMainBackGroundColor,
-        body: GetBuilder<HomeController>(
-            builder: (controller) => Padding(
-                  padding: EdgeInsets.all(10.sp),
-                  child: ListView(
-                    children: [
-                      BannerAdUnit(),
-                      HomeSectionHeader(
-                        text: "مواعيد الصلاة",
-                      ),
-                      SalahTimingWidget(),
-                      Divider(
-                        thickness: 2.h,
-                        height: 20.h,
-                      ),
-                      HomeSectionHeader(
-                        text: "الأقسام",
-                      ),
-                      HomeCategoriesSection(),
-                      Divider(
-                        thickness: 2.h,
-                        height: 20.h,
-                      ),
-                      HomeSectionHeader(
-                        text: "المصحف الكامل",
-                        widget: ShowMoreBtn(
-                          func: () {
-                            Get.offNamed(AppRoutesNames.moshafAudio);
-                          },
+    return PopScopeWidget(
+        func: (didpop, result) {
+          popFunc(
+              didpop,
+              AwesomeDialog(
+                body: Text(
+                  "هل تريد مغادرة التطبيق ؟",
+                  style: TextStyle(color: AppColors.textBlack),
+                ),
+                btnOkText: "رجوع الى التطبيق",
+                btnOkOnPress: () {
+                  Get.back();
+                },
+                btnCancelText: "اغلاق التطبيق",
+                btnCancelOnPress: () {
+                  SystemNavigator.pop();
+                },
+                context: context,
+              ).show());
+        },
+        widget: Scaffold(
+          backgroundColor: AppColors.splashMainBackGroundColor,
+          body: GetBuilder<HomeController>(
+              builder: (controller) => Padding(
+                    padding: EdgeInsets.all(10.sp),
+                    child: ListView(
+                      children: [
+                        HomeSectionHeader(
+                          text: "مواعيد الصلاة",
                         ),
-                      ),
-                      AlmoshafKamelItems(),
-                      Divider(
-                        thickness: 2.h,
-                        height: 20.h,
-                      ),
-                      HomeSectionHeader(
-                        text: "اسماء السور",
-                        widget: ShowMoreBtn(func: () {
-                          Get.offNamed(AppRoutesNames.suwarname);
-                        }),
-                      ),
-                      SuwarNames(),
-                      Divider(
-                        thickness: 2.h,
-                        height: 20.h,
-                      ),
-                      HomeSectionHeader(
-                        text: "تدبر القرآن",
-                        widget: ShowMoreBtn(func: () {
-                          Get.offNamed(AppRoutesNames.tadaborScreen);
-                        }),
-                      ),
-                      TadaborSection(),
-                      Divider(
-                        thickness: 2.h,
-                        height: 20.h,
-                      ),
-                      HomeSectionHeader(
-                        text: "قراءات متنوعة",
-                        widget: ShowMoreBtn(func: () {
-                          Get.offNamed(AppRoutesNames.variousreading);
-                        }),
-                      ),
-                      VariousReadingWidgets(),
-                      Divider(
-                        thickness: 2.h,
-                        height: 20.h,
-                      ),
-                    ],
-                  ),
-                )),
-      ),
-    );
+                        SalahTimingWidget(),
+                        Divider(
+                          thickness: 2.h,
+                          height: 20.h,
+                        ),
+                        HomeSectionHeader(
+                          text: "الأقسام",
+                        ),
+                        HomeCategoriesSection(),
+                        Divider(
+                          thickness: 2.h,
+                          height: 20.h,
+                        ),
+                        HomeSectionHeader(
+                          text: "المصحف الكامل",
+                          widget: ShowMoreBtn(
+                            func: () {
+                              Get.offNamed(AppRoutesNames.moshafAudio);
+                            },
+                          ),
+                        ),
+                        AlmoshafKamelItems(),
+                        Divider(
+                          thickness: 2.h,
+                          height: 20.h,
+                        ),
+                        HomeSectionHeader(
+                          text: "اسماء السور",
+                          widget: ShowMoreBtn(func: () {
+                            Get.offNamed(AppRoutesNames.suwarname);
+                          }),
+                        ),
+                        SuwarNames(),
+                        Divider(
+                          thickness: 2.h,
+                          height: 20.h,
+                        ),
+                        HomeSectionHeader(
+                          text: "تدبر القرآن",
+                          widget: ShowMoreBtn(func: () {
+                            Get.offNamed(AppRoutesNames.tadaborScreen);
+                          }),
+                        ),
+                        TadaborSection(),
+                        Divider(
+                          thickness: 2.h,
+                          height: 20.h,
+                        ),
+                        HomeSectionHeader(
+                          text: "قراءات متنوعة",
+                          widget: ShowMoreBtn(func: () {
+                            Get.offNamed(AppRoutesNames.variousreading);
+                          }),
+                        ),
+                        VariousReadingWidgets(),
+                        Divider(
+                          thickness: 2.h,
+                          height: 20.h,
+                        ),
+                      ],
+                    ),
+                  )),
+        ));
   }
 }

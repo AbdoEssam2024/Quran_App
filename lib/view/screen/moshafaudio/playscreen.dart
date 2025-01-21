@@ -5,7 +5,9 @@ import 'package:quran/controller/moshafaudio/moshafplayscreencontroller.dart';
 import 'package:quran/core/class/screensize.dart';
 import 'package:quran/core/constant/appcolors/appcolors.dart';
 import 'package:quran/core/functions/audiofunctions.dart';
-import 'package:quran/view/widgets/moshafaudiowidgets/playscreenwidgets.dart';
+import 'package:quran/core/functions/pop_func.dart';
+import 'package:quran/view/widgets/corewidgets/pop_widget.dart';
+import 'package:quran/view/widgets/moshafaudiowidgets/moshaf_play_screen/playscreenwidgets.dart';
 
 class PlayScreen extends GetView<MoshafPlayScreenController> {
   const PlayScreen({super.key});
@@ -13,9 +15,11 @@ class PlayScreen extends GetView<MoshafPlayScreenController> {
   @override
   Widget build(BuildContext context) {
     Get.put(MoshafPlayScreenController());
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
+    return PopScopeWidget(
+      func: (didpop, result) {
+        popFunc(didpop, controller.goToSudioSuwar());
+      },
+      widget: Scaffold(
           backgroundColor: AppColors.splashMainBackGroundColor,
           body: Container(
             margin: EdgeInsets.only(top: ScreenSize.screenHeight * 0.08),
